@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { API_OPTIONS } from "../utils/constants";
 import { useUserStore } from "../store/useUserStore";
-// import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
 import VideoTitle from "./VideoTitle";
+import MovieList from "./MovieList";
 
 const Browse = () => {
   const setMovieList = useUserStore((state) => state.setMovieList);
+  const movieList = useUserStore((state) => state.movieList);
   const [firstMovieId, setFirstMovieId] = useState<number | null>(null);
   const [trailer, setTrailer] = useState<any>(null);
   const [movie, setMovie] = useState<any>(null);
@@ -50,11 +51,15 @@ const Browse = () => {
   }, [firstMovieId]);
 
   return (
-    <>
-      {/* <MainContainer /> */}
-      <SecondaryContainer trailer={trailer} />
-      <VideoTitle movie={movie} />
-    </>
+    <div className="bg-black flex flex-col min-h-screen">
+      <div className="relative w-full h-[75vh]">
+        <SecondaryContainer trailer={trailer} />
+        <VideoTitle movie={movie} />
+      </div>
+
+      {/* Movie list below */}
+      <MovieList movieList={movieList} />
+    </div>
   );
 };
 export default Browse;
